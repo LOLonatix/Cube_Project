@@ -78,6 +78,7 @@ class MainWindow(tk.Tk):
     def update_sizes(self):
         for i in range(0, len(self.list_resize)):
             self.list_resize[i].redraw()
+            print('thats a try')
 
 
 
