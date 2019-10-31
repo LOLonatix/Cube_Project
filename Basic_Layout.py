@@ -25,13 +25,15 @@ class ScrollableCanvas(tk.Canvas):
         self.configure(yscrollcommand=self.vsb.set)
         self.create_window((4,4), window=self.frame, anchor="nw")
         self.yview_moveto(0)
-        #self.frame.pack_propagate(0)
+        self.frame.pack_propagate(0)
 
         self.frame.bind("<Configure>", self.onFrameConfigure)
         self.bind_all("<MouseWheel>", self._on_mousewheel)
 
-        #self.reiter = cv.Reiter(self.frame, self.controller, "BLACK")
-        #self.reiter.pack(anchor="nw")
+        self.reiter = cv.Reiter(self.frame, self.controller, "BLACK")
+        self.reiter.pack()
+        self.inner_frame = cv.InnerFrame(self.frame, self.controller, self.reiter, "RED")
+        self.inner_frame.pack(pady=self.inner_frame.pady)
 
 
 
@@ -53,6 +55,12 @@ class ScrollableCanvas(tk.Canvas):
         self.update()
         self.frame.configure(borderwidth=0, width=self.winfo_width(), height=self.y_range, highlightthickness=2, bg="GREEN")
         self.frame.update()
+        #print("window", self.controller.winfo_width())
+        #print('canvas', self.winfo_width())
+        #print('frame', self.frame.winfo_width())
+
+        self.reiter.redraw()
+        self.inner_frame.redraw()
 
 
 
